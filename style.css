@@ -1,0 +1,24 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#lista-container{
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    margin: 20px 0;
+}
+
+label{
+    font-size:30px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+.chbox{
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
+}
+.terminado{
+    text-decoration: line-through;
+}
