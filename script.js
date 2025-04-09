@@ -8,7 +8,7 @@ botonAgregar.onclick=()=>{
         ListaTODO.push({
             razon:inputTODO.value,
             hecho:false,
-            fechaIniciado:new Date(Date.now()).toDateString(),
+            fechaIniciado:new Date(Date.now()),
             fechaTerminado:undefined
         });
         inputTODO.value='';
@@ -35,7 +35,7 @@ document.getElementById('lista-container').onclick = (e) => {
         let labelPadre = e.target.parentNode;
         if (e.target.checked) {
             ListaTODO[index].hecho = true;
-            ListaTODO[index].fechaTerminado = new Date(Date.now()).toDateString();
+            ListaTODO[index].fechaTerminado = new Date(Date.now());
             labelPadre.classList.add('terminado');
         } else {
             ListaTODO[index].hecho = false;
@@ -51,9 +51,7 @@ btnTareaRapida.onclick=()=>{
     let menorDiferencia=Infinity;
     ListaTODO.forEach(tarea=>{
         if(tarea.hecho && tarea.fechaTerminado){
-            const fechaInicio=new Date(tarea.fechaIniciado);
-            const fechaTerminado=new Date(tarea.fechaTerminado);
-            const diferencia = fechaInicio-fechaTerminado;
+            const diferencia = Math.abs(tarea.fechaIniciado - tarea.fechaTerminado);
             if(diferencia<menorDiferencia){
                 menorDiferencia=diferencia;
                 tareaRapida=tarea;
@@ -61,7 +59,7 @@ btnTareaRapida.onclick=()=>{
         }
     });
     if(tareaRapida!=null){
-        alert(`Razón: ${tareaRapida.razon}`);
+        alert(`La tarea que se termino más rapido fue: ${tareaRapida.razon}`);
     }else{
         alert('No hay ninguna tarea o ninguna tarea fue terminada');
     }
