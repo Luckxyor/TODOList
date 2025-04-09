@@ -1,9 +1,10 @@
 const inputTODO=document.getElementById("TODOIngresado");
 const botonAgregar=document.getElementById("AgregarTODO");
 const container = document.getElementById('lista-container');
+const btnTareaRapida=document.getElementById('tareaRapida');
 let ListaTODO=[];
 botonAgregar.onclick=()=>{
-    if(inputTODO!=''){
+    if(inputTODO.value!=''){
         ListaTODO.push({
             razon:inputTODO.value,
             hecho:false,
@@ -16,9 +17,15 @@ botonAgregar.onclick=()=>{
 }
 function agregarToDo() {
     container.innerHTML='';
-    ListaTODO.forEach((elementoToDo,index)=>{
+    ListaTODO.forEach((elementoToDo, index)=>{
         let nuevoToDo=document.createElement('label');
-        nuevoToDo.innerHTML=`<input type="checkbox" class="chbox" data-index="${index}"/>${elementoToDo.razon}`;
+        let estado = elementoToDo.fechaTerminado ? `Completado el ${elementoToDo.fechaTerminado}` : "Incompleto";
+        nuevoToDo.innerHTML=`<input type="checkbox" class="chbox" data-index="${index}"/>${elementoToDo.razon}
+        <p class="caracteristicasTODO">Fecha de creación: ${elementoToDo.fechaIniciado} - Estado: ${estado}</p>`;
+        if(elementoToDo.hecho){
+            nuevoToDo.classList.add('terminado');
+            nuevoToDo.firstChild.checked=true;
+        }
         container.appendChild(nuevoToDo);
     });
 }
@@ -35,5 +42,27 @@ document.getElementById('lista-container').onclick = (e) => {
             ListaTODO[index].fechaTerminado = undefined;
             labelPadre.classList.remove('terminado');
         }
+        agregarToDo();
     }
 };
+
+btnTareaRapida.onclick=()=>{
+    let tareaRapida=null;
+    let menorDiferencia=Infinity;
+    ListaTODO.forEach(tarea=>{
+        if(tarea.hecho && tarea.fechaTerminado){
+            const fechaInicio=new Date(tarea.fechaIniciado);
+            const fechaTerminado=new Date(tarea.fechaTerminado);
+            const diferencia = fechaInicio-fechaTerminado;
+            if(diferencia<menorDiferencia){
+                menorDiferencia=diferencia;
+                tareaRapida=tarea;
+            }
+        }
+    });
+    if(tareaRapida!=null){
+        alert(`Razón: ${tareaRapida.razon}`);
+    }else{
+        alert('No hay ninguna tarea o ninguna tarea fue terminada');
+    }
+}

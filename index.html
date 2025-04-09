@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TODOList</title>
+    <title>TODO List</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Lista To Do</h1>
-    <div class="form">
-        <h2>Escribir lo que tenes que hacer acá</h2>
-        <input type="text" id="TODOIngresado">
-        <button type="submit" id="AgregarTODO">Enviar</button>
+    <div class="container">
+        <h1>Lista de To Do</h1>
+        <div class="form">
+            <h2>Que tareas tenes que hacer?</h2>
+            <input type="text" id="TODOIngresado" placeholder="Escribe tu tarea...">
+            <button type="submit" id="AgregarTODO">Agregar Tarea</button>
+        </div>
+        <div id="lista-container" class="lista-container"></div>
+        <button id="tareaRapida">Saber tarea más rapida</button>
     </div>
-    <div id="lista-container"></div>
     <script src="script.js"></script>
 </body>
 </html>
